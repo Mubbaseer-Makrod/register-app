@@ -6,23 +6,23 @@ pipeline {
 	}
 	stages{
 		stage('Clean Workspace') {
-		steps{
-			cleanWs()
+			steps{
+					cleanWs()
 			}
 		}
 		stage('CheckOut From SCM') {
 			steps{
-			git branch: 'main', credentialsId: 'github', url: 'https://github.com/Mubbaseer-Makrod/register-app.git'
+				git branch: 'main', credentialsId: 'github', url: 'https://github.com/Mubbaseer-Makrod/register-app.git'
 			}
 		}
 		stage("Build Application") {
 			steps{
-			sh 'mvn clean package'
+				sh 'mvn clean package'
 			}
 		}
 		stage("Test Application") {
 			steps{
-			sh 'mvn test'
+				sh 'mvn test'
 			}
 		}
 		stage("SonarQube Analysis") {
@@ -30,6 +30,7 @@ pipeline {
 				withSonarQubeEnv(credentialsId: 'Jenkins-Sonarqube-Toke')
 				sh 'mvn sonar:sonar'
 			}
+		}
 	}
 	
 }
