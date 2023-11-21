@@ -7,7 +7,7 @@ pipeline {
 	stages{
 		stage('Clean Workspace') {
 			steps{
-					cleanWs()
+				cleanWs()
 			}
 		}
 		stage('CheckOut From SCM') {
@@ -26,10 +26,12 @@ pipeline {
 			}
 		}
 		stage("SonarQube Analysis") {
-			script {
-				withSonarQubeEnv(credentialsId: 'Jenkins-Sonarqube-Toke') {
-					sh 'mvn sonar:sonar'
+			steps {
+				script {
+					withSonarQubeEnv(credentialsId: 'Jenkins-Sonarqube-Toke') {
+						sh 'mvn sonar:sonar'
 				}
+			}
 			}
 		}
 	}
